@@ -1,7 +1,7 @@
 
 import scipy.ndimage as ndimage
 from skimage import filters, measure, morphology, segmentation
-from skimage.io import imread
+from skimage.io import imread, imsave
 import numpy as np
 
 import napari
@@ -16,13 +16,13 @@ author = "@TimMonko: University of Minnesota AND napari"
 
 # TZYX tribolium image
 img = imread(r'https://github.com/clEsperanto/clesperanto_example_data/raw/main/Lund-100MB.tif')
+imsave(r'./data/tribolium.tif', img)
 
 labels = np.zeros_like(img, dtype=np.uint16)
-# keep only the first timepoint of this image
-# img = img[1, :, :, :]
+
 for t in range(img.shape[0]):
     t_img = img[t, :, :, :]
-# use a tophat filter to remove the background
+    # use a tophat filter to remove the background
     img_bs = ndimage.white_tophat(t_img, size=15)
 
     # blur the image to smooth out noise from the background subtraction
@@ -47,6 +47,8 @@ for t in range(img.shape[0]):
     )
     
     labels[t, :, :, :] = img_labels
+
+imsave(r'./data/tribolium_labels.tif', labels)
 
 viewer = napari.Viewer()
 
@@ -75,7 +77,7 @@ viewer.scale_bar.font_size = 20
 
 
 font = viewer.window._qt_viewer.console._control.font()
-font.setPointSize(35)
+font.setPointSize(25)
 viewer.window._qt_viewer.console._control.setFont(font)
 viewer.window._qt_viewer.toggle_console_visibility()
 
