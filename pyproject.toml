@@ -6,4 +6,8 @@ readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
     "ipykernel>=6.29.5",
+    "napari[optional,pyqt6,gallery]>=0.6.3rc0",
+    "napari-ndev",
+    "ndev-sampledata",
+    "sunpy[all]"
 ]
