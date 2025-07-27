@@ -9,5 +9,6 @@ dependencies = [
     "napari[optional,pyqt6,gallery]>=0.6.3rc0",
     "napari-ndev",
     "ndev-sampledata",
-    "sunpy[all]"
+    "sunpy[all]",
+    "cmap",
 ]
