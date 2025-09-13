@@ -25,4 +25,5 @@ viewer.dims.axis_labels = sst.sst.dims
 viewer.axes.visible = True
 viewer.camera.orientation2d = ('up', 'right')
 
-napari.run()
+if __name__ == "__main__":
+    napari.run()
