@@ -21,4 +21,5 @@ layer = viewer.add_surface((vertices, faces), name='1BNA', shading='smooth')
 
 viewer.camera.angles = (90, 0, 90)
 
-napari.run()
+if __name__ == "__main__":
+    napari.run()
