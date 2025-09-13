@@ -4,6 +4,10 @@
 
 ## Setup instructions
 
+You can run scripts with uv without creating an environment due to inline dependency management.
+
+`uv run scripts/weather_data.py`
+
 Create a virtual environment and install napari with optional dependencies.
 
 With uv:
