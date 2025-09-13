@@ -1,8 +1,14 @@
+# /// script
+# dependencies = [
+#   "napari[pyqt6,optional]",
+# ]
+# ///
 
 import scipy.ndimage as ndimage
 from skimage import filters, measure, morphology, segmentation
 from skimage.io import imread, imsave
 import numpy as np
+from pathlib import Path
 
 import napari
 
@@ -14,41 +20,51 @@ SciPy 2025 - July 11"""
 
 author = "@TimMonko: University of Minnesota AND napari"
 
-# TZYX tribolium image
-img = imread(r'https://github.com/clEsperanto/clesperanto_example_data/raw/main/Lund-100MB.tif')
-imsave(r'./data/tribolium.tif', img)
+data_dir = Path(__file__).parent / 'data'
+data_dir.mkdir(exist_ok=True)
 
-labels = np.zeros_like(img, dtype=np.uint16)
+raw_path = data_dir / 'tribolium.tif'
+labels_path = data_dir / 'tribolium_labels.tif'
 
-for t in range(img.shape[0]):
-    t_img = img[t, :, :, :]
-    # use a tophat filter to remove the background
-    img_bs = ndimage.white_tophat(t_img, size=15)
+if raw_path.exists() and labels_path.exists():
+    img = imread(str(raw_path))
+    labels = imread(str(labels_path))
+else:
+    # TZYX tribolium image
+    img = imread(r'https://github.com/clEsperanto/clesperanto_example_data/raw/main/Lund-100MB.tif')
+    imsave(data_dir / 'tribolium.tif', img)
 
-    # blur the image to smooth out noise from the background subtraction
-    img_blur = filters.gaussian(img_bs, 1)
+    labels = np.zeros_like(img, dtype=np.uint16)
 
-    # detect maxima in the blurred image for watershed seeds
-    img_spot_maxima = morphology.local_maxima(img_blur)
+    for t in range(img.shape[0]):
+        t_img = img[t, :, :, :]
+        # use a tophat filter to remove the background
+        img_bs = ndimage.white_tophat(t_img, size=15)
 
-    # create a threshold mask
-    img_otsu = img_blur > filters.threshold_otsu(img_blur)
+        # blur the image to smooth out noise from the background subtraction
+        img_blur = filters.gaussian(img_bs, 1)
 
-    # keep only maxima spots that are inside a thresholded area
-    img_threshold_spots = img_spot_maxima * img_otsu
+        # detect maxima in the blurred image for watershed seeds
+        img_spot_maxima = morphology.local_maxima(img_blur)
 
-    # create a connected components labeling of the thresholded image
-    # using the local maxima as markers, as a seed for a voronoi diagram
-    img_labeled_spots = measure.label(img_threshold_spots)
-    img_labels = segmentation.watershed(
-        img_otsu,
-        markers=img_labeled_spots,
-        mask=img_otsu
-    )
-    
-    labels[t, :, :, :] = img_labels
+        # create a threshold mask
+        img_otsu = img_blur > filters.threshold_otsu(img_blur)
 
-imsave(r'./data/tribolium_labels.tif', labels)
+        # keep only maxima spots that are inside a thresholded area
+        img_threshold_spots = img_spot_maxima * img_otsu
+
+        # create a connected components labeling of the thresholded image
+        # using the local maxima as markers, as a seed for a voronoi diagram
+        img_labeled_spots = measure.label(img_threshold_spots)
+        img_labels = segmentation.watershed(
+            img_otsu,
+            markers=img_labeled_spots,
+            mask=img_otsu
+        )
+        
+        labels[t, :, :, :] = img_labels
+
+    imsave(data_dir / 'tribolium_labels.tif', labels)
 
 viewer = napari.Viewer()
 
@@ -74,7 +90,6 @@ viewer.axes.visible = True
 viewer.scale_bar.visible = True
 viewer.scale_bar.unit = 'μm'
 viewer.scale_bar.font_size = 20
-
 
 font = viewer.window._qt_viewer.console._control.font()
 font.setPointSize(25)
