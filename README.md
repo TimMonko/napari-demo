@@ -29,3 +29,9 @@ pip install "napari[pyqt6,optional,docs]>=0.6.2"
 Alternatively, you can make a temporary install of napari with uv:
 
 `uvx --with "napari[pyqt6,optional,docs]>=0.6.2" napari`
+
+## Other Ideas
+
+### Brainrender with napari
+
+`uvx --with "napari[pyqt6,optional]" --with brainrender-napari -p 3.12 napari`
