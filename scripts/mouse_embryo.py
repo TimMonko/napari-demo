@@ -14,7 +14,7 @@ data_dir = pathlib.Path(__file__).parent / 'data'
 data_dir.mkdir(exist_ok=True)
 
 # Use pooch to download and cache the file
-url = "https://api.mousephenotype.org/tracker/media/emb2/8/9/0/19/843/40869/603913_download.nrrd"
+url = "https://api.mousephenotype.org/tracker/media/emb2/11/13/0/19/842/40838/2087261_download.nrrd"
 
 data_path = pooch.retrieve(
     url=url,
