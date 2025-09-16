@@ -1,7 +1,6 @@
 # /// script
 # dependencies = [
 #   "napari[pyqt6,optional]",
-#   "vispy",
 # ]
 # ///
 
