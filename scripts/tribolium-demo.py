@@ -34,11 +34,9 @@ img = imread(str(raw_path))
 if labels_path.exists():
     labels = imread(str(labels_path))
 else:
-    print("Creating labels from raw image...")
     labels = np.zeros_like(img, dtype=np.uint16)
 
     for t in range(img.shape[0]):
-        print(f"Processing timepoint {t+1}/{img.shape[0]}")
         t_img = img[t, :, :, :]
         # use a tophat filter to remove the background
         img_bs = ndimage.white_tophat(t_img, size=15)
@@ -74,6 +72,8 @@ image = viewer.add_image(
     img,
     name='tribolium',
     colormap='plasma',
+    contrast_limits=[0,120],
+    rendering='attenuated_mip'
 )
 
 labels_layer = viewer.add_labels(
