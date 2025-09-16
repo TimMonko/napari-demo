@@ -36,6 +36,8 @@ Alternatively, you can make a temporary install of napari with uv:
 
 `uvx --with "napari[pyqt6,optional]" --with brainrender-napari -p 3.12 napari`
 
+![brainrender-napari-e16-lsfm](resources/brainrender-napari.png)
+
 ## napari with skimage and sample data
 
 `uvx --with napari-skimage --with ndev-sampledata --with napari-bio-sample-data --with napari[pyqt6,optional] -p 3.12 napari`
