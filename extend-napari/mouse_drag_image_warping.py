@@ -29,15 +29,28 @@ import skimage as ski
 import napari
 
 # Set up base image (to be warped) and points layers
-image = ski.data.checkerboard()
-src = np.array([[66, 66], [133, 66], [66, 133], [133, 133]])
+image = ski.data.immunohistochemistry()
+
+# Place points in a grid pattern across the image
+quarter_x = image.shape[0] // 3
+quarter_y = image.shape[1] // 3
+
+
+src = np.array([
+    [quarter_x, quarter_y],           # top-left
+    [2 * quarter_x, quarter_y],       # top-right
+    [quarter_x, 2 * quarter_y],       # bottom-left
+    [2 * quarter_x, 2 * quarter_y],   # bottom-right
+])
 
 viewer = napari.Viewer()
-checkerboard_image_layer = viewer.add_image(image, name='checkerboard')
+image_layer = viewer.add_image(image)
 source_points_layer = viewer.add_points(
-    src, name='source_points', symbol='+', face_color='red', size=5
+    src, name='source_points', symbol='+', face_color='yellow', size=20
 )
-moving_points_layer = viewer.add_points(src.copy(), name='moving_points')
+moving_points_layer = viewer.add_points(
+    src.copy(), name='moving_points', size=20
+)
 
 # ensure moving_points layer is in Select mode
 moving_points_layer.mode = 'select'
@@ -66,7 +79,7 @@ def warp(
 # callback only has access to the moving `points_layer` and the `event` object itself
 warp_checkerboard = partial(
     warp,  # the warping function
-    checkerboard_image_layer,  # im_layer argument
+    image_layer,  # im_layer argument
     image,  # original_image_data argument
     src,  # src argument
 )
