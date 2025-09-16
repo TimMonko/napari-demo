@@ -12,4 +12,5 @@ dependencies = [
     "brainrender-napari",
     "napari-ome-zarr",
     "ndev-sampledata",
+    "napari-geojson",
 ]

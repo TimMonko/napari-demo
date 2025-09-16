@@ -1,2 +1,6 @@
 *tribolium*.tif
 *mouse_embryo.nrrd
+*_MACOSX*
+*.svs
+*.zip
+*.geojson

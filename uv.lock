@@ -1001,6 +1001,15 @@ s3 = [
 ]
 
 [[package]]
+name = "geojson"
+version = "3.2.0"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/85/5a/33e761df75c732fcea94aaf01f993d823138581d10c91133da58bc231e63/geojson-3.2.0.tar.gz", hash = "sha256:b860baba1e8c6f71f8f5f6e3949a694daccf40820fa8f138b3f712bd85804903", size = 24574, upload-time = "2024-12-21T19:35:29.835Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/18/67/a7fa2d650602731c90e0a86279841b4586e14228199e8c09165ba4863e29/geojson-3.2.0-py3-none-any.whl", hash = "sha256:69d14156469e13c79479672eafae7b37e2dcd19bdfd77b53f74fa8fe29910b52", size = 15040, upload-time = "2024-12-21T19:37:02.149Z" },
+]
+
+[[package]]
 name = "glasbey"
 version = "0.3.0"
 source = { registry = "https://pypi.org/simple" }
@@ -1941,6 +1950,7 @@ dependencies = [
     { name = "brainrender-napari" },
     { name = "napari", extra = ["gallery", "optional", "pyqt6"] },
     { name = "napari-bio-sample-data" },
+    { name = "napari-geojson" },
     { name = "napari-ome-zarr" },
     { name = "napari-skimage" },
     { name = "napari-tiff" },
@@ -1952,10 +1962,24 @@ requires-dist = [
     { name = "brainrender-napari" },
     { name = "napari", extras = ["optional", "pyqt6", "gallery"], specifier = ">0.6.3" },
     { name = "napari-bio-sample-data" },
+    { name = "napari-geojson", specifier = ">=0.1.3" },
     { name = "napari-ome-zarr" },
     { name = "napari-skimage" },
     { name = "napari-tiff" },
     { name = "ndev-sampledata" },
+]
+
+[[package]]
+name = "napari-geojson"
+version = "0.1.3"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "geojson" },
+    { name = "numpy" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/79/61/9c73b35ca5b8013962c5c0e37e9d8721c6787ce54c36a7d37b2335889479/napari_geojson-0.1.3.tar.gz", hash = "sha256:d376f4a658573d32ab99410411184c61db3d14869eede7648a3bc92958912d71", size = 4220389, upload-time = "2022-11-10T15:27:50.482Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/5f/24/ce054fd41156588b749c6e6b7b517930ff9c50d171b13ae03c7207108b25/napari_geojson-0.1.3-py3-none-any.whl", hash = "sha256:0fdeeae84103896d19582ef90cf71f50cbd2b977f93f96d726adbd69435daa06", size = 11038, upload-time = "2022-11-10T15:27:48.589Z" },
 ]
 
 [[package]]
