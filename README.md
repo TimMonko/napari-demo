@@ -1,29 +1,26 @@
 # Demo Repo for Various napari Presentations
 
-**Work in Progress**
-
 ## Setup instructions
 
 You can run scripts with uv without creating an environment due to inline dependency management.
 
 `uv run scripts/weather_data.py`
 
-Create a virtual environment and install napari with optional dependencies.
+Alternatively, create a virtual environment and install the project dependencies, which covers most of the demos here.
 
 With uv:
 
-```
-uv venv --python 3.12
-.venv\Scripts\activate
-uv pip install "napari[pyqt6,optional,docs]>=0.6.2"
+```bash
+uv sync
+.venv\Scripts\activate  # macOS/Linux: source bin/activate 
 ```
 
 With conda:
 
-```
+```bash
 conda create -n napari-demo python=3.12
 conda activate napari-demo
-pip install "napari[pyqt6,optional,docs]>=0.6.2"
+pip install -e .
 ```
 
 Alternatively, you can make a temporary install of napari with uv:
