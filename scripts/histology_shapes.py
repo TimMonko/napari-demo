@@ -48,21 +48,14 @@ geojson_layers = viewer.open(
     str(geojson_path),
     plugin='napari-geojson',
     face_color = 'yellow',
-    opacity=0.6,
+    opacity=0.7,
 )
 shapes = geojson_layers[0]
-face_colors = shapes.face_color
+
+face_colors = shapes.face_color.copy()
 
 face_colors[0] = (0, 0, 0, 0)
 shapes.face_color = face_colors
-
-# compute the area of all the other shapes
-
-
-# color the remaining shapes based on their area
-
-
-# shapes.face_color = face_colors
 
 viewer.fit_to_view(margin=0)
 
